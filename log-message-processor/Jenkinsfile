@@ -19,13 +19,11 @@ def buildAndPush(registryID, imageName, version){
     try {
 	    dir ('log-message-processor') {
 		    
-		app = docker.build("${registryID}/${imageName}")
-		docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials') {
+		app = docker.build("${imageName}")
+		docker.withRegistry('private-registry:5000') {
 		    app.push("${version}.${env.BUILD_NUMBER}")
-		    }
-             
-             
-		    
+		}
+             		    
 	    }
 	    
 	} catch (error){
