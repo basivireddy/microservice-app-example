@@ -7,11 +7,9 @@ node {
         
 	stage('Build and push') {
 	   
-	          def pom = readMavenPom file:'pom.xml'
-            print pom.version
-            env.version = pom.version
+	          
             dir ('account-service') {
-                  def app = docker.build "private-registry:5000/log-message-processor:${env.version}"
+                  def app = docker.build "private-registry:5000/log-message-processor:v1."${env.BUILD_NUMBER}
                   app.push()
            }
 		
