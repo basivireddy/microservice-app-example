@@ -6,7 +6,7 @@ node {
 
         
 	stage('Docker Build and Publish') {
-		buildAndPush('private-registry:5000',"${env.JOB_NAME}", 'v1');
+		buildAndPush('private-registry:5000','log-message-processor', 'v1');
         }
 		
 
@@ -19,8 +19,8 @@ def buildAndPush(registryID, imageName, version){
     try {
 	    dir ('log-message-processor') {
 		    
-	     app = docker.build("${registryID}/${imageName}")
-             app.push("${version}.${env.BUILD_NUMBER}")
+	     app = docker.build("${registryID}/${imageName}:${version}.${env.BUILD_NUMBER}")
+             app.push()
             //app = docker.build "private-registry:5000/log-message-processor:v1" .
             //app.push()
 		    
