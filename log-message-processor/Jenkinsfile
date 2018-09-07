@@ -15,17 +15,13 @@ node {
 
 
 def buildAndPush( imageName, version){
-    def app
-    try {
+   
 	   
 		    
-		    sh 'docker build -t private-registry:5000/log-message-processor:v1.0 log-message-processor/Dockerfile'
+		    sh 'docker build -t private-registry:5000/log-message-processor:v1.0 log-message-processor/'
 		    sh 'docker push private-registry:5000/log-message-processor:v1.0'
 		
              		    
 	
-	    
-	} catch (error){
-		sh 'echo "Not able to build and push docker image ${error}"'
-	}
+	
 }
