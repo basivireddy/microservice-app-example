@@ -1,0 +1,24 @@
+node {
+
+        stage('Checkout') {
+            git url: 'https://github.com/basivireddy/microservice-app-example.git', credentialsId: 'github-basivireddy', branch: 'master'
+        }
+
+        
+	stage('Build and push') {
+	   
+	          def pom = readMavenPom file:'pom.xml'
+            print pom.version
+            env.version = pom.version
+            dir ('account-service') {
+                  def app = docker.build "private-registry:5000/log-message-processor:${env.version}"
+                  app.push()
+           }
+		
+	}
+	
+	
+
+    
+
+}
