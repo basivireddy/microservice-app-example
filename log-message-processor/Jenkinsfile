@@ -19,11 +19,10 @@ def buildAndPush(registryID, imageName, version){
     try {
 	    dir ('log-message-processor') {
 		    
-	     app = docker.build("${imageName}")
-             //app.push("${version}.${env.BUILD_NUMBER}")
-            docker.withRegistry("${registryID}") {
-		    app.push("${version}.${env.BUILD_NUMBER}")
-		}
+		    app = docker.build("${imageName}:${version}.${env.BUILD_ID}")
+                    app.push()
+             
+             
 		    
 	    }
 	    
