@@ -17,14 +17,13 @@ node {
 def buildAndPush( imageName, version){
     def app
     try {
-	    dir ('log-message-processor') {
+	   
 		    
-		    app = docker.build("private-registry:5000/${imageName}")
-		
-		app.push("${version}.${env.BUILD_NUMBER}")
+		    sh 'docker build -t private-registry:5000/log-message-processor:v1.0 log-message-processor/Dockerfile'
+		    sh 'docker push private-registry:5000/log-message-processor:v1.0'
 		
              		    
-	    }
+	
 	    
 	} catch (error){
 		sh 'echo "Not able to build and push docker image ${error}"'
